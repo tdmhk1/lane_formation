@@ -7,7 +7,7 @@ class Agent(object):
         self.id = id
         self.x = x
         self.y = y
-        if (dx == 1 && dy == 0) || (dx == 0 && dy == 1):
+        if (dx == 1 and dy == 0) or (dx == 0 and dy == 1):
             self.dx = dx
             self.dy = dy
         else:

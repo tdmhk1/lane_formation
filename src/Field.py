@@ -9,6 +9,7 @@ class Field(object):
         self.t = 0
         self.field = np.zeros((height, width)).astype(np.int8)
         self.agents = []
+        self.agent_size = 0
 
     def step(self):
         step_candidate = [[[]]]
@@ -32,4 +33,9 @@ class Field(object):
         for agent, size in zip(agents, sizes):
             for x, y in zip(np.random.randint(self.width, size), np.random.randint(self.height, size)):
                 self.agents.append(agent.copy(x, y))
-        return np.sum(sizes)
+        incremental = np.sum(sizes)
+        self.agent_size += incremental
+        return incremental
+
+    def get_agent_size(self):
+        return self.agent_size
