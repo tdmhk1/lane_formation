@@ -35,7 +35,7 @@ class Agent(object):
             prob_dist = np.zeros((3, 3)).astype(np.int8)
             prob_dist[y_F][x_F] = 1.0
         # 同じエージェントがいた場合
-    else if forward == self.id:
+        elif forward == self.id:
             prob_dist = self.__step_prob_dist_faced(neighborhood, p_R11, p_L11,
             p_W11, p_R12, p_W12, p_L13, p_W13, p_W3, p_B, True)
         # 異なるエージェントがいた場合
@@ -59,7 +59,7 @@ class Agent(object):
             prob_dist[y_L][x_L] = p_L1
             prob_dist[1][1] = p_W1
         # 両隣が埋まっている場合
-        else if right * left != 0:
+        elif right * left != 0:
             if back == 0:
                 prob_dist[1][1] = p_W4
                 prob_dist[y_B][x_B] = p_B
