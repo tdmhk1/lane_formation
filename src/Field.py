@@ -14,7 +14,7 @@ class Field(object):
     def step(self):
         step_candidates = [[[] for _ in range(self.width)] for _ in range(self.height)]
         for agent in self.agents:
-            neighborhood = self.__get_neighberhood(agent.x, agent.y)
+            neighborhood = self._get_neighberhood(agent.x, agent.y)
             x, y = agent.step(neighborhood)
             # 周期境界条件を適用
             x, y = x % self.width, y % self.height
@@ -34,7 +34,7 @@ class Field(object):
     def add_agents(self, agents, sizes):
         for agent, size in zip(agents, sizes):
             for i in range(size):
-                x, y = self.__generate_point()
+                x, y = self._generate_point()
                 self.agents.append(agent.copy(x, y))
                 self.field[y][x] = agent.id
         incremental = np.sum(sizes)
@@ -47,14 +47,14 @@ class Field(object):
     def get_agent_size(self):
         return self.agent_size
 
-    def __get_neighberhood(self, x, y):
+    def _get_neighberhood(self, x, y):
         neighborhood = np.zeros((3, 3)).astype(np.int8)
         for i in range(-1, 2):
             for j in range(-1, 2):
                 neighborhood[i][j] = self.field[(y+i)%self.height][(x+j)%self.width]
         return neighborhood
 
-    def __generate_point(self):
+    def _generate_point(self):
         x = -1
         while x < 0 or self.field[y][x] != 0:
             x = np.random.randint(self.width)
