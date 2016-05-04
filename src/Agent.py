@@ -4,6 +4,8 @@ class Agent(object):
     """docstring for Agent"""
     def __init__(self, id, x, y, dx, dy):
         super(Agent, self).__init__()
+        if id == 0:
+            raise("0 is invalid ID")
         self.id = id
         self.x = x
         self.y = y
@@ -23,16 +25,16 @@ class Agent(object):
     def step(self, neighborhood):
         prob_dist = self.step_prob_dist(neighborhood)
         result = np.random.choice(9, p=prob_dist.reshape(9))
-        return self.x + result % 3 - 1, self.y + result / 3 - 1
+        return self.x + result % 3 - 1, self.y + result // 3 - 1
 
     def step_prob_dist(self, neighborhood, p_R11=0.25, p_L11=0.25, p_W11=0.5,
     p_R12=0.5, p_W12=0.5, p_L13=0.5, p_W13=0.5, p_R21=0.4, p_L21=0.1, p_W21=0.5,
     p_R22=0.5, p_W22=0.5, p_L23=0.1, p_W23=0.9, p_W3=0.5, p_B=0.5):
-        x_F, y_F = 1+self.dy, 1+self.dx
+        x_F, y_F = 1+self.dx, 1+self.dy
         forward = neighborhood[y_F][x_F]
         # 正面にエージェントがいない場合
         if forward == 0:
-            prob_dist = np.zeros((3, 3)).astype(np.int8)
+            prob_dist = np.zeros((3, 3))
             prob_dist[y_F][x_F] = 1.0
         # 同じエージェントがいた場合
         elif forward == self.id:
@@ -52,7 +54,7 @@ class Agent(object):
         right = neighborhood[y_R][x_R]
         back = neighborhood[y_B][x_B]
         left = neighborhood[y_L][x_L]
-        prob_dist = np.zeros((3, 3)).astype(np.int8)
+        prob_dist = np.zeros((3, 3))
         # 両隣が空いている場合
         if right**2 + left**2 == 0:
             prob_dist[y_R][x_R] = p_R1
