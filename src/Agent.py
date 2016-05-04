@@ -11,7 +11,7 @@ class Agent(object):
             self.dx = dx
             self.dy = dy
         else:
-            except("velosity is not 1")
+            raise("velosity is not 1")
 
     def copy(self, x, y):
         return Agent(self.id, x, y, self.dx, self.dy)
