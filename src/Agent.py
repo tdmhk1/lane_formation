@@ -39,18 +39,18 @@ class Agent(object):
         # 同じエージェントがいた場合
         elif forward == self.id:
             prob_dist = self._step_prob_dist_faced(neighborhood, p_R11, p_L11,
-            p_W11, p_R12, p_W12, p_L13, p_W13, p_W3, p_B, True)
+            p_W11, p_R12, p_W12, p_L13, p_W13, p_W3, p_B)
         # 異なるエージェントがいた場合
         else:
             prob_dist = self._step_prob_dist_faced(neighborhood, p_R21, p_L21,
-            p_W21, p_R22, p_W22, p_L23, p_W23, p_W3, p_B, False)
+            p_W21, p_R22, p_W22, p_L23, p_W23, p_W3, p_B)
         return prob_dist
 
     def _step_prob_dist_faced(self, neighborhood, p_R1, p_L1, p_W1, p_R2, p_W2,
-    p_L3, p_W3, p_W4, p_B, is_same):
-        x_R, y_R = 1+self.dx, 1-self.dy
-        x_B, y_B = 1-self.dy, 1-self.dx
-        x_L, y_L = 1-self.dx, 1+self.dy
+    p_L3, p_W3, p_W4, p_B):
+        x_R, y_R = 1-self.dy, 1+self.dx
+        x_B, y_B = 1-self.dx, 1-self.dy
+        x_L, y_L = 1+self.dy, 1-self.dx
         right = neighborhood[y_R][x_R]
         back = neighborhood[y_B][x_B]
         left = neighborhood[y_L][x_L]
